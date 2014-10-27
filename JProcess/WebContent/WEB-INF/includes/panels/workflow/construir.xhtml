@@ -1,0 +1,165 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ace="http://www.icefaces.org/icefaces/components"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:icecore="http://www.icefaces.org/icefaces/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<h:form>
+		<ice:panelGroup visible="#{!construccionFrontBean.selected}">
+
+			<ace:dataTable value="#{construccionFrontBean.listaAplicacion}"
+				var="app" selectionMode="single"
+				rowSelectListener="#{construccionFrontBean.aplicacionSelectListener}">
+				<ace:column headerText="Id">
+					<h:outputText value="#{app.id}" />
+				</ace:column>
+				<ace:column headerText="Aplicación">
+					<h:outputText value="#{app.aplicacion}" />
+				</ace:column>
+				<ace:column headerText="Descripción">
+					<h:outputText value="#{app.descripcion}" />
+				</ace:column>
+				<ace:column headerText="Versión">
+					<h:outputText value="#{app.version}" />
+				</ace:column>
+				<ace:column headerText="Inicio">
+					<h:outputText value="#{app.idTareaInicial}" >
+						<f:converter converterId="tareaConverter"/>
+					</h:outputText>
+				</ace:column>
+				<ace:column headerText="Fin">
+					<h:outputText value="#{app.idTareaFinal}" >
+						<f:converter converterId="tareaConverter"/>
+					</h:outputText>
+				</ace:column>
+			</ace:dataTable>
+		</ice:panelGroup>
+
+		<ice:panelGroup visible="#{construccionFrontBean.selected}"
+			style="padding-left:30px;">
+			<div align="left">
+				<h:outputText value="#{construccionFrontBean.aplicacion.aplicacion}"
+					style="font-size:x-large" />
+				<br />
+				<h:outputText
+					value="#{construccionFrontBean.aplicacion.descripcion}"
+					style="font-size:medium;" />
+			</div><br/>
+			<table>
+				<tr>
+					<td><ace:textEntry label="Inicio" labelPosition="left" immediate="true" value="#{construccionFrontBean.tareaInicial}"> 
+							<f:converter converterId="tareaConverter"/>
+						</ace:textEntry>
+					</td>
+					<td><ace:textEntry label="Fin" labelPosition="left" immediate="true" value="#{construccionFrontBean.tareaFinal}">
+							<f:converter converterId="tareaConverter"/>
+						</ace:textEntry>
+					</td>
+				</tr>
+			</table>
+			
+			<hr/>
+			<table>
+				<tr>
+					<td align="left"><ace:simpleSelectOneMenu label="Tarea Inicio"
+							labelPosition="left"
+							value="#{construccionFrontBean.selectedTareaInicio}"
+							immediate="true">
+							<f:selectItem itemValue="-1" itemLabel="Seleccione.." />
+							<f:selectItems value="#{construccionFrontBean.tareasInicio}" />
+						</ace:simpleSelectOneMenu></td>
+					<td align="left"><ace:simpleSelectOneMenu label="Es Condicional"
+							labelPosition="left" 
+							value="#{construccionFrontBean.selectedEsCondicional}"
+							immediate="true">
+							<f:selectItem itemValue="-1" itemLabel="Seleccione.." />
+							<f:selectItem itemValue="S" itemLabel="Si" />
+							<f:selectItem itemValue="N" itemLabel="No" />
+						</ace:simpleSelectOneMenu></td>
+
+				</tr>
+				<tr>
+					<td align="left"><ace:simpleSelectOneMenu label="Tarea Exito"
+							labelPosition="left"
+							value="#{construccionFrontBean.selectedTareaDestino}"
+							immediate="true">
+							<f:selectItem itemValue="-1" itemLabel="Seleccione.." />
+							<f:selectItems value="#{construccionFrontBean.tareasDestino}" />
+						</ace:simpleSelectOneMenu></td>
+
+					<td align="left"><ace:simpleSelectOneMenu label="Tarea Rechazo"
+							labelPosition="left"
+							value="#{construccionFrontBean.selectedTareaRechazo}"
+							immediate="true">
+							<f:selectItem itemValue="-1" itemLabel="Seleccione.." />
+							<f:selectItems value="#{construccionFrontBean.tareasRechazo}" />
+						</ace:simpleSelectOneMenu></td>
+				</tr>
+				<tr>
+					<td align="left"><ace:simpleSelectOneMenu label="Tipo Destino"
+							labelPosition="left"
+							value="#{construccionFrontBean.selectedTipoDestino}"
+							immediate="true">
+							<f:selectItem itemValue="-1" itemLabel="Seleccione.." />
+							<f:selectItem itemValue="simple" itemLabel="Simple" />
+							<f:selectItem itemValue="paralela" itemLabel="Paralela" />
+						</ace:simpleSelectOneMenu></td>
+					<td/>
+				</tr>
+			</table>
+			<table>
+					<tr>
+						<td><ace:pushButton
+								actionListener="#{construccionFrontBean.agregarEventoListener}"
+								value="Ingresar" rendered="#{!construccionFrontBean.selectedCreacion}" /></td>
+						<td><ace:pushButton
+								actionListener="#{construccionFrontBean.updateEventoListener}"
+								value="Modificar" rendered="#{construccionFrontBean.selectedCreacion}" /></td>
+						<td><ace:pushButton
+								actionListener="#{aplicacionFrontBean.deleteAplicacionListener}"
+								value="Dar de Baja" rendered="#{construccionFrontBean.selectedCreacion}" /></td>
+						<td><ace:pushButton
+								actionListener="#{construccionFrontBean.resetEventoListener}"
+								value="Limpiar" >
+								<ace:ajax event="activate" execute="@this"/>
+								</ace:pushButton></td>						
+					</tr>
+				</table>
+				<br/>
+			<ace:dataTable value="#{construccionFrontBean.listaConstruccion}"
+				var="con" selectionMode="single" rowSelectListener="#{construccionFrontBean.eventoSelectListener}">
+				
+				<ace:column headerText="Tarea Inicial">
+					<h:outputText value="#{con.idTareaInicio}">
+						<f:converter converterId="tareaConverter" />
+					</h:outputText>
+				</ace:column>
+				<ace:column headerText="Tarea Éxito">
+					<h:outputText value="#{con.idTareaExito}">
+						<f:converter converterId="tareaConverter" />
+					</h:outputText>
+				</ace:column>
+				<ace:column headerText="Tiene Rechazo">
+					<h:outputText value="#{con.esCondicional}" >
+						<f:converter converterId="rechazoConverter"/>
+					</h:outputText>
+				</ace:column>
+				<ace:column headerText="Tarea Rechazo">
+					<h:outputText value="#{con.idTareaRechazo}">
+						<f:converter converterId="tareaConverter" />
+					</h:outputText>
+				</ace:column>
+				<ace:column headerText="Tipo Destino">
+					<h:outputText value="#{con.tipoDestino}"/>
+				</ace:column>
+			</ace:dataTable>
+			<div align="left">
+				<br/><br/>
+				<ace:pushButton value="Cerrar"
+					actionListener="#{construccionFrontBean.cerrarVentanaListener}" />
+			</div>
+		</ice:panelGroup>
+	</h:form>
+</ui:composition>

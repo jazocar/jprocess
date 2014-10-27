@@ -1,0 +1,104 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ace="http://www.icefaces.org/icefaces/components"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:icecore="http://www.icefaces.org/icefaces/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:form>
+		<table>
+			<tr>
+				<td align="left"><ice:graphicImage url="./img/mantenedor_submenu.png"
+						style="padding-left: 30px;" /></td>
+			</tr>
+		</table>
+		<br/>
+		<table>
+			<tr>
+				<td><h:outputLabel for="id_menu_submenu" value="Menú" /></td>
+				<td><ace:simpleSelectOneMenu  id="id_menu_submenu" value="#{menuFrontBean.selectedMenu}" immediate="true">
+						<f:selectItem itemLabel="Seleccione" itemValue="-1"/>
+						<f:selectItems value="#{menuFrontBean.itemsMenu}"/>
+					</ace:simpleSelectOneMenu></td>
+				<td><h:outputLabel for="id_nombre_submenu" value="Nombre" /></td>
+				<td><ace:textEntry id="id_nombre_submenu" immediate="true" value="#{menuFrontBean.inputSubmenuNombre}"/></td>
+				<td><h:outputLabel for="etiqueta_submenu" value="Etiqueta" /></td>
+				<td><ace:textEntry id="etiqueta_submenu" immediate="true" value="#{menuFrontBean.inputSubmenuEtiqueta}"/></td>
+				<td><h:outputLabel for="stackname_submenu" value="StackName" /></td>
+				<td><ace:simpleSelectOneMenu  id="stackname_submenu" value="#{menuFrontBean.selectedPanel}" immediate="true">
+						<f:selectItem itemLabel="Seleccione" itemValue="-1"/>
+						<f:selectItems value="#{menuFrontBean.itemsPanel}"/>
+					</ace:simpleSelectOneMenu></td>
+			</tr>
+			<tr>
+				<td><h:outputLabel for="order_submenu" value="Order" rendered="#{menuFrontBean.selectedSubmenu}" /></td>
+				<td><ace:textEntry id="order_submenu" immediate="true" value="#{menuFrontBean.inputSubmenuOrder}" rendered="#{menuFrontBean.selectedSubmenu}"/></td>
+				<td colspan="8"/>
+			</tr>
+		</table>
+		<div align="left">
+			<br />
+			<table>
+				<tr>
+					<td><ace:pushButton value="Ingresar"
+							actionListener="#{menuFrontBean.ingresarSubmenuListener}"
+							rendered="#{!menuFrontBean.selectedSubmenu}" /></td>
+					<td><ace:pushButton value="Modificar"
+							actionListener="#{menuFrontBean.modificarSubmenuListener}"
+							rendered="#{menuFrontBean.selectedSubmenu}" /></td>
+					<td><ace:pushButton value="Dar de Baja"
+							actionListener="#{menuFrontBean.darBajaSubmenuListener}"
+							rendered="#{menuFrontBean.selectedSubmenu}" /></td>					
+					<td><ace:pushButton value="Limpiar"
+							actionListener="#{menuFrontBean.limpiarCamposSubmenuListener}" /></td>
+				</tr>
+			</table>
+		</div>
+		<br/>
+		
+		<ace:dataTable id="submenuList" var="submenu" rows="15"
+			selectionMode="single" value="#{menuFrontBean.listaSubmenu}" paginator="true" paginatorPosition="top"
+			rowSelectListener="#{menuFrontBean.rowSelectionSubmenuListener}">
+
+			<ace:column headerText="Id" sortBy="#{submenu.id}"
+					filterBy="#{submenu.id}"
+					filterMatchMode="contains">
+				<ice:outputText id="idSubMenu" value="#{submenu.id}" />
+			</ace:column>	
+			<ace:column headerText="Submenu" sortBy="#{submenu.idSubmenu}"
+					filterBy="#{submenu.idSubmenu}"
+					filterMatchMode="contains">
+				<ice:outputText id="idSubMenuSubMenu" value="#{submenu.idSubmenu}" />
+			</ace:column>	
+			<ace:column headerText="Menu" sortBy="#{submenu.idMenu}"
+					filterBy="#{submenu.idMenu}"
+					filterMatchMode="contains">
+				<ice:outputText id="idMenuSubMenu" value="#{submenu.idMenu}" />
+			</ace:column>
+			<ace:column headerText="Etiqueta" sortBy="#{submenu.etiqueta}"
+					filterBy="#{submenu.etiqueta}"
+					filterMatchMode="contains">
+				<ice:outputText id="etiquetaSubMenu" value="#{submenu.etiqueta}" />
+			</ace:column>
+			<ace:column headerText="Stackname" sortBy="#{submenu.stackName}"
+					filterBy="#{submenu.stackName}"
+					filterMatchMode="contains">
+				<ice:outputText id="stackNameSubMenu" value="#{submenu.stackName}" />
+			</ace:column>
+			<ace:column headerText="Estado" sortBy="#{submenu.estado}"
+					filterBy="#{submenu.estado}"
+					filterMatchMode="contains">
+				<ice:outputText id="estadoSubMenu" value="#{submenu.estado}" />
+			</ace:column>	
+			<ace:column headerText="Order" sortBy="#{submenu.order}"
+					filterBy="#{submenu.order}"
+					filterMatchMode="contains">
+				<ice:outputText id="orderSubMenu" value="#{submenu.order}" />
+			</ace:column>
+		</ace:dataTable>
+		
+	
+	</h:form>
+
+	</ui:composition>

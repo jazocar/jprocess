@@ -1,0 +1,86 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ace="http://www.icefaces.org/icefaces/components"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:icecore="http://www.icefaces.org/icefaces/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:form>
+	  <div>
+		<table>
+			<tr>
+				<td align="left"><ice:graphicImage
+						url="./img/mantenedor_paneles.png" style="padding-left: 30px;" /></td>
+			</tr>
+		</table>
+		<br />		
+			
+				<table style="width: 100%;">
+					<tr>
+						<td align="left"><ice:outputText value="Panel ID" /></td>
+						<td align="left"><ice:inputText
+								value="#{panelFrontBean.panelId}" immediate="true" size="30" /></td>
+						<td align="left"><ice:outputText value="Subview ID"  visible="false"/></td>
+						<td align="left"><ice:inputText
+								value="#{panelFrontBean.panelSubviewId}" immediate="true" size="30" visible="false"/></td>
+						<td align="left"><ice:outputText value="Include" /></td>
+						<td align="left"><ice:inputText
+								value="#{panelFrontBean.include}" immediate="true" size="60" /></td>
+					</tr>
+				</table>
+				<table>
+					<tr>
+						<td><ace:pushButton
+								actionListener="#{panelFrontBean.panelInsertListener}"
+								value="Ingresar" rendered="#{!panelFrontBean.selected}" /></td>
+						<td><ace:pushButton
+								actionListener="#{panelFrontBean.panelUpdateListener}"
+								value="Modificar" rendered="#{panelFrontBean.selected}" /></td>
+						<td><ace:pushButton
+								actionListener="#{panelFrontBean.panelDeleteListener}"
+								value="Dar de Baja" rendered="#{panelFrontBean.selected}" /></td>
+						<td><ace:pushButton
+								actionListener="#{panelFrontBean.panelResetListener}"
+								value="Limpiar" /></td>
+						<td align="left"></td>
+						<td align="left"></td>
+					</tr>
+				</table>
+				<br></br>
+					<hr />
+					<br />
+					<ace:dataTable id="panelesConfiguracionTable"
+						value="#{panelFrontBean.listaPanel}" var="panel"
+						paginator="true" paginatorPosition="bottom" rows="20"
+						selectionMode="single" 
+					   rowSelectListener="#{panelFrontBean.panelSelectListener}">					
+						
+						<ace:column id="idPanelConfiguracion" headerText="Id Panel"	
+										sortBy="#{panel.idPanel}"
+										filterBy="#{panel.idPanel}"
+										filterMatchMode="contains">
+							<h:outputText id="idPanelConfiguracionCell" value="#{panel.idPanel}" style="float:left; font-size: small;" />
+						</ace:column>
+
+						<ace:column id="subviewPanelConfiguracion" headerText="Subview" 
+									sortBy="#{panel.idSubview}"
+										filterBy="#{panel.idSubview}"
+										filterMatchMode="contains">
+							<h:outputText id="subviewPanelConfiguracionCell"
+								value="#{panel.idSubview}" style="float:left; font-size: small;" />
+						</ace:column>
+
+						<ace:column id="includePanelConfiguracion" headerText="Include"
+						 			sortBy="#{panel.include}"
+										filterBy="#{panel.include}"
+										filterMatchMode="contains">
+							<h:outputText id="includePanelConfiguracionCell"
+								value="#{panel.include}" style="float:left; font-size: small;" />
+						</ace:column>						
+					</ace:dataTable>
+			</div>
+	
+	</h:form>
+</ui:composition>

@@ -1,0 +1,201 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ace="http://www.icefaces.org/icefaces/components"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:icecore="http://www.icefaces.org/icefaces/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+	<style type="text/css">
+            .ice-checkboxbutton button {
+                height:24px;
+                width:24px;
+            }
+
+            .ice-checkboxbutton button.ui-state-hover {
+                background: url('./css/images/checkGrey.png') no-repeat;
+                border:none;
+            }
+
+            .ice-checkboxbutton button.ui-state-active {
+                background: url('./css/images/check.png') no-repeat;
+                border:none;
+            }
+
+            .ice-checkboxbutton span.ui-state-default {
+                background: url('./css/images/uncheck.png') no-repeat;
+            }
+
+            .ice-checkboxbutton .ui-state-active .ui-icon {
+                background: transparent;
+            }
+        </style>
+	
+	<h:form id="tarea-form">
+		<ice:panelGroup style="padding-left: 30px;">
+		<!-- <div align="left">
+		<ice:outputText value="#{toDoFrontBean.outputAppId}" style="font-size:x-large; color: black;">
+			<f:converter converterId="aplicacionConverter"/>
+		</ice:outputText><br/> <ice:outputText value="#{toDoFrontBean.outputAppDescripcion}" />
+		</div> -->
+		<ace:panel id="personalInfoOutputPanel" header="Estado Final" rendered="#{toDoFrontBean.mensajes}">
+                <ace:messages id="allMsgs" initEffect="highlight"/>
+            </ace:panel>
+		
+		
+		<div align="left">
+		<table>
+				<tr>
+					<!--<td><ace:pushButton value="Iniciar" rendered="#{toDoFrontBean.esAutomatica}"/></td> -->
+					<td><ace:pushButton value="Despachar" actionListener="#{toDoFrontBean.despacharCreacionListener}"/></td>
+					<td><ace:pushButton value="Rechazo" rendered="#{toDoFrontBean.esRechazo}" actionListener="#{toDoFrontBean.rechazarTareaListener}"/></td>
+					<!-- <td><ace:pushButton value="Desistir" rendered="false"/></td> -->	
+					<td><ace:pushButton value="Volver" actionListener="#{navigationBean.navigationStackChange}">
+							<ace:ajax event="activate" execute="@this">
+							<f:param name="stackName" value="inicioPorHacerPanel"/>
+							</ace:ajax>
+						</ace:pushButton>
+					</td>							
+				</tr>
+			</table>
+		
+		<ice:outputText value="#{toDoFrontBean.outputNombreTarea}" style="font-size:x-large; color: black;"/><br /> 
+		<ice:outputText value="#{toDoFrontBean.outputDescripcionTarea}" />
+		<br/>
+		<table>
+									<tr>
+										<td align="left"><ice:outputText value="Caso:"
+												style="color:red;" /> <ice:outputText
+												value="#{toDoFrontBean.outputCaso}"
+												style="color:black; padding-left:5px;" /></td>
+										<td></td>
+									</tr>
+									<tr>
+										<td align="left"><ice:outputText value="Aplicación:"
+												style="color:red;" /> <ice:outputText
+												value="#{toDoFrontBean.outputAplicacion}"
+												style="color:black; padding-left:5px;" /></td>
+										<td></td>
+									</tr>
+									<tr>
+										<td align="left"><ice:outputText value="Vencimiento:"
+												style="color:red;" /> <ice:outputText
+												value="#{toDoFrontBean.outputVencimiento}"
+												style="color:black; padding-left:5px;" >
+												<f:convertDateTime pattern="dd-MM-yyyy HH:mm:ss"/>
+												</ice:outputText></td>
+										<td></td>
+									</tr>
+									<tr>
+										<td align="left"><ice:outputText value="Prioridad:"
+												style="color:red;" /> <ice:outputText
+												value="#{toDoFrontBean.outputPrioridad}"
+												style="color:black; padding-left:5px;" /></td>
+										<td></td>
+									</tr>
+									<tr>
+										<td align="left"><ice:outputText value="Estado:"
+												style="color:red;" /> <ice:outputText value="Pendiente"
+												style="color:black; padding-left:5px;" /></td>
+										<td></td>
+									</tr>
+									<tr>
+										<td align="left"><ice:outputText value="Tipo de Tarea"
+												style="color:red;" /> <ice:outputText value="Semi-Automática"
+												style="color:black; padding-left:5px;" /></td>
+										<td></td>
+									</tr>
+									<tr>
+										<td align="left"><ice:outputText value="Asignado a:"
+												style="color:red;" /> <ice:outputText
+												value="#{toDoFrontBean.outputUsuario}"
+												style="color:black; padding-left:5px;" >
+													<f:converter converterId="usuarioConverter" />
+													</ice:outputText></td>
+										<td></td>
+									</tr>
+								</table>
+								<br/>
+				<hr/>
+				<ice:panelGroup>
+				<ice:outputText value="Checklist" style="font-size:x-large; color: black;"/> <br/>
+				<ice:outputText value="A continuación indique cuales opciones se encuentran terminadas" /><br/><br/>
+				<table>
+					 <ice:panelSeries value="#{toDoFrontBean.listaConfiguracion}"
+	                             var="conf"
+	                             rows="100">
+	                         <tr>					
+							 	<td><ace:checkboxButton required="#{conf.requerido}" value="#{conf.seleccionado}" immediate="true"/>
+			                    		</td>
+			                	<td>
+			                		<ice:outputText value="#{conf.checkOption}" style="color:black;"/>
+			                	</td>
+	                		</tr>	
+	                </ice:panelSeries>
+                </table>
+                </ice:panelGroup>
+				<hr/>
+				<ice:panelGroup rendered="#{toDoFrontBean.esAutomatica}">
+				   
+				   <ice:outputText value="Archivos Adjuntos" style="color:black; font-size: x-large;"/><br/>
+				   <ice:outputText value="A continuación usted puede adjuntar los archivos necesarios para la tarea actual" />
+				   <br/><br/>
+				   <table>
+				   	<tr>
+				   		<td><ace:fileEntry id="file-entry" 
+						 
+                                                    relativePath="/files/"
+                                                    maxFileCount="10" 
+                                                    maxFileCountMessage="El limite es de 10 archivos." 
+                                                    fileEntryListener="#{toDoFrontBean.sampleListener}"                                                    
+                                                    maxFileSize="6291456" 
+                                                    maxFileSizeMessage="Submitted file is too large." 
+                                                    maxTotalSize="18874368" 
+                                                    maxTotalSizeMessage="Total size of submitted files is too large." 
+                                                    useOriginalFilename="true" 
+                                                    useSessionSubdir="true"/></td>
+				   		<td><h:commandButton  type="submit" value="Cargar Archivo"/></td>
+				   	</tr>
+				   </table>
+				   <br/>
+				  					<ace:dataTable id="tbl" value="#{toDoFrontBean.fileData}" var="fileDataVal">
+                    <ace:column>
+                        <f:facet name="header">
+                            <h:outputText value="Archivos"/>
+                        </f:facet>
+                        <h:outputText id="fileData" value="#{fileDataVal}"/>
+                    </ace:column>
+                </ace:dataTable>
+                 <ace:messages id="msgs" for="tarea-form:file-entry"/>
+				</ice:panelGroup>
+				
+				<br/>
+				 <hr/>
+				   <ice:outputText value="Comentarios" style="font-size:x-large; color: black;"/> <br/>
+				<ice:outputText value="A continuación usted puede ingresar comentarios asociados a la solicitud" /><br/><br/>
+				
+			<table><tr>
+					<td><ace:textAreaEntry value="#{toDoFrontBean.inputComentario}" rows="1" cols="50" label="Ingrese un Comentario" labelPosition="left"/> </td>
+					<td><ace:pushButton value="Ingresar Comentario" actionListener="#{toDoFrontBean.insertComentarioListener}"/> </td>
+					</tr>
+					
+					</table>
+			<ace:dataTable value="#{toDoFrontBean.listaComentario}" var="com">
+					<ace:column headerText="Usuario">
+						<h:outputText value="#{com.usuario}"/>
+					</ace:column>
+					<ace:column headerText="Fecha">
+						<h:outputText value="#{com.fechaPublicacion}">
+							<f:convertDateTime pattern="dd-MM-yyyy HH:mm:ss"/>
+						</h:outputText>
+					</ace:column>
+					<ace:column headerText="Comentario">
+						<h:outputText value="#{com.comentario}"/>
+					</ace:column>					
+			</ace:dataTable>
+		</div>
+		
+		</ice:panelGroup>
+	</h:form>
+</ui:composition>

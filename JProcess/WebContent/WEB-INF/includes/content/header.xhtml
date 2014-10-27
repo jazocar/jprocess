@@ -1,0 +1,57 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ace="http://www.icefaces.org/icefaces/components"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:icecore="http://www.icefaces.org/icefaces/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:form>
+		<table style="width: 100%">
+			<tr>
+				<td><div>
+						<table>
+							<tr>
+								<td><ice:graphicImage url="./img/jprocess.png" height="80"/> </td>
+							</tr>
+						</table>
+					</div></td>
+
+				<td align="right">
+				<div>						
+						<ice:outputText value="Bienvenido:" style="color:black; font-size:medium; padding-right:10px;" />
+						<ice:outputText value="Juan Azocar M." style="color:black; font-size:medium; padding-right:10px;" />
+						<ace:menuButton id="menuButton" effect="SLIDE" 
+							effectDuration="200" value="Opciones de Usuario">					
+							<ace:menuItem id="logout" value="Cerrar Sesion"
+								actionListener="#{usuarioFrontBean.logoutUsuarioListener}">
+								<ace:ajax event="activate" execute="@this" />
+							</ace:menuItem>
+						</ace:menuButton>
+					</div>					
+				</td>
+				<td align="right" width="50"><ice:outputConnectionStatus
+						id="connectStat" showPopupOnDisconnect="true"
+						displayHourglassWhenActive="true" /></td>
+			</tr>
+			<tr>
+			 <td colspan="3" align="left">
+			   <ace:menuBar direction="right" autoSubmenuDisplay="true">	
+					<c:forEach items="#{menuFrontBean.listaMenu}" var="menu">
+						<ace:submenu label="#{menu.etiqueta}" rendered="#{menu.rendered}" >
+							<c:forEach items="#{menu.listaSubmenu}" var="submenu">
+								<ace:menuItem value="#{submenu.etiqueta}" icon="ui-icon"
+									actionListener="#{navigationBean.navigationStackChange}" style="font-size:small; color:black; padding:0px;">
+									<ace:ajax event="activate" execute="@this">
+										<f:param name="stackName" value="#{submenu.stackName}" />
+									</ace:ajax>
+								</ace:menuItem>
+							</c:forEach>
+						</ace:submenu>
+					</c:forEach>
+				</ace:menuBar>
+			 </td></tr>
+		</table>
+	</h:form>
+</ui:composition>

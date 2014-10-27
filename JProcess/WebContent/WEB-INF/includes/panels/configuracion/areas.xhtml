@@ -1,0 +1,54 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ace="http://www.icefaces.org/icefaces/components"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:icecore="http://www.icefaces.org/icefaces/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<h:form>
+		<table>
+			<tr>
+				<td><ace:simpleSelectOneMenu value="#{areaFrontBean.inputOrganizacion}" immediate="true">
+						<f:selectItem itemValue="-1" itemLabel="Seleccione..."/>
+						<f:selectItems value="#{areaFrontBean.listaOrg}" />				
+				</ace:simpleSelectOneMenu> </td>
+				<td><ace:textEntry label="Nombre" labelPosition="left" value="#{areaFrontBean.inputNombre}" immediate="true"/></td>
+				<td><ace:textEntry label="Descripcion" labelPosition="left" value="#{areaFrontBean.inputDescripcion}" immediate="true"/></td>
+			</tr>
+		</table>
+		<br />
+			<table>
+				<tr>
+					<td><ace:pushButton value="Ingresar"
+							actionListener="#{areaFrontBean.insertAreaListener}"
+							rendered="#{!areaFrontBean.selected}" /></td>
+					<td><ace:pushButton value="Modificar"
+							actionListener="#{areaFrontBean.updateAreaListener}"
+							rendered="#{areaFrontBean.selected}" /></td>
+					<td><ace:pushButton value="Dar de Baja"
+							actionListener="#{areaFrontBean.deleteAreaListener}"
+							rendered="#{areaFrontBean.selected}" /></td>						
+					<td><ace:pushButton value="Limpiar"
+							actionListener="#{areaFrontBean.resetAreaListener}" /></td>
+				</tr>
+			</table>
+			<br/>
+		<ace:dataTable value="#{areaFrontBean.listaArea}" var="area" selectionMode="single" rowSelectListener="#{areaFrontBean.organizacionSelectListener}">
+			<ace:column headerText="Id">
+				<h:outputText value="#{area.id}"/>
+			</ace:column>
+			<ace:column headerText="Organizacion">
+				<h:outputText  value="#{area.idOrganizacion}">
+					<f:converter converterId="organizationConverter"/>
+				</h:outputText>
+			</ace:column>
+			<ace:column headerText="Nombre">
+				<h:outputText  value="#{area.nombre}"/>
+			</ace:column>
+			<ace:column headerText="Descripción">
+				<h:outputText  value="#{area.descripcion}"/>
+			</ace:column>
+		</ace:dataTable>
+	</h:form>
+</ui:composition>

@@ -1,0 +1,130 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ace="http://www.icefaces.org/icefaces/components"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:icecore="http://www.icefaces.org/icefaces/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<h:form>
+		<table>
+			<tr>
+				<td align="left"><ice:graphicImage
+						url="./img/mantenedor_tareas.png" style="padding-left: 30px;" /></td>
+			</tr>
+		</table>
+		<br />
+		<table>
+			<tr>
+				<td><ace:textEntry label="Nombre" labelPosition="left" value="#{tareaBean.inputNombre}" immediate="true"/> </td>				
+				<td colspan="3"><ace:textAreaEntry cols="61" rows="1" label="Descripción" labelPosition="left" value="#{tareaBean.inputDescripcion}" immediate="true"/> </td>				
+			</tr>
+			<tr>				
+				<td><ace:simpleSelectOneMenu style="width:170px;" value="#{tareaBean.selectedPrioridad}" label="Prioridad" labelPosition="left" immediate="true">
+						<f:selectItem itemValue="-1" itemLabel="Seleccione..." />
+						<f:selectItem itemValue="Baja" itemLabel="Baja" />
+						<f:selectItem itemValue="Normal" itemLabel="Normal" />
+						<f:selectItem itemValue="Alta" itemLabel="Alta" />
+					</ace:simpleSelectOneMenu>  </td>
+					
+				<td><ace:simpleSelectOneMenu style="width:170px;" value="#{tareaBean.selectedTipoTarea}"  label="Tipo Tarea" labelPosition="left" immediate="true">
+						<f:selectItem itemValue="-1" itemLabel="Seleccione..." />
+						<f:selectItem itemValue="Manual" itemLabel="Manual" />
+						<f:selectItem itemValue="Semi-Automatica" itemLabel="Semi Automática" />
+					</ace:simpleSelectOneMenu>  </td>
+					
+				<td><ace:simpleSelectOneMenu style="width:170px;" value="#{tareaBean.selectedOrganizacion}"  label="Organización" labelPosition="left" immediate="true">
+						<f:selectItem itemValue="-1" itemLabel="Seleccione..." />
+						<f:selectItems value="#{tareaBean.listaOrg}"/>
+					</ace:simpleSelectOneMenu> </td>
+							
+			</tr>
+			<tr>	
+			<td><ace:simpleSelectOneMenu style="width:170px;" value="#{tareaBean.selectedTipoDuracion}"  label="Tipo Duración" labelPosition="left" immediate="true">
+						<f:selectItem itemValue="-1" itemLabel="Seleccione..." />
+						<f:selectItem itemValue="D" itemLabel="Días" />
+						<f:selectItem itemValue="H" itemLabel="Horas" />
+						<f:selectItem itemValue="M" itemLabel="Minutos" />
+					</ace:simpleSelectOneMenu> </td>						
+				<td><ace:textEntry  label="Duración" labelPosition="left"  value="#{tareaBean.inputDuracion}" immediate="true"/></td>				
+						
+				<td><ace:simpleSelectOneMenu style="width:170px;" value="#{tareaBean.selectedTipoAsignacion}"  label="Asignación" labelPosition="left" immediate="true">
+						<f:selectItem itemValue="-1" itemLabel="Seleccione..." />
+						<f:selectItem itemValue="R" itemLabel="Rol" />
+						<f:selectItem itemValue="P" itemLabel="Persona" />						
+					</ace:simpleSelectOneMenu> </td>
+			</tr>
+			<tr>
+				<td ><ace:simpleSelectOneMenu style="width:170px;" value="#{tareaBean.selectedRolAsignacion}"  label="Rol Asignación" labelPosition="left" immediate="true">
+						<f:selectItem itemValue="-1" itemLabel="Seleccione..." />
+						<f:selectItems value="#{tareaBean.listaRol}" />
+					</ace:simpleSelectOneMenu></td>
+				<td></td>
+				<td></td>				
+			</tr>
+		</table>
+		<table>
+					<tr>
+						<td><ace:pushButton
+								actionListener="#{tareaBean.insertTareaListener}"
+								value="Ingresar" rendered="#{!tareaBean.selected}" /></td>
+						<td><ace:pushButton
+								actionListener="#{tareaBean.updateTareaListener}"
+								value="Modificar" rendered="#{tareaBean.selected}" /></td>
+						<td><ace:pushButton
+								actionListener="#{tareaBean.deleteTareaListener}"
+								value="Dar de Baja" rendered="#{tareaBean.selected}" /></td>
+						<td><ace:pushButton
+								actionListener="#{navigationBean.navigationStackChange}"
+								value="Configuración" rendered="#{tareaBean.selected}" >
+								 <ace:ajax execute="@this" event="activate">
+									<f:param value="configuradorTareaPanel" name="stackName"></f:param>
+									</ace:ajax>
+								</ace:pushButton></td>
+						<td><ace:pushButton
+								actionListener="#{tareaBean.resetTareaListener}"
+								value="Limpiar" >
+								<ace:ajax event="activate" execute="@this"/>
+								</ace:pushButton></td>
+						
+					</tr>
+				</table>
+				<br/>
+			<ace:dataTable value="#{tareaBean.listaTareas}" var="tarea" rowSelectListener="#{tareaBean.tareaSelectListener}" selectionMode="single">
+				<ace:column headerText="Id" sortBy="#{tarea.id}"
+					filterBy="#{tarea.id}"
+					filterMatchMode="contains">
+				    <h:outputText value="#{tarea.id}" />
+				</ace:column>
+				<ace:column headerText="Nombre" sortBy="#{tarea.nombre}"
+					filterBy="#{tarea.nombre}"
+					filterMatchMode="contains">
+				    <h:outputText value="#{tarea.nombre}" />
+				</ace:column>
+				<ace:column headerText="Tipo Tarea" sortBy="#{tarea.tipoTarea}"
+					filterBy="#{tarea.tipoTarea}"
+					filterMatchMode="contains">
+				    <h:outputText value="#{tarea.tipoTarea}" />
+				</ace:column>
+				<ace:column headerText="Prioridad" sortBy="#{tarea.prioridad}"
+					filterBy="#{tarea.prioridad}"
+					filterMatchMode="contains">
+				    <h:outputText value="#{tarea.prioridad}" />
+				</ace:column>
+				<ace:column headerText="Organización" sortBy="#{tarea.idOrganizacion}"
+					filterBy="#{tarea.idOrganizacion}"
+					filterMatchMode="contains">					
+				    <h:outputText value="#{tarea.idOrganizacion}" >
+				    	<f:converter converterId="organizationConverter" />
+				    </h:outputText>
+				</ace:column>
+				<ace:column headerText="Rol Asignado" sortBy="#{tarea.idRolAsignacion}"
+					filterBy="#{tarea.idRolAsignacion}"
+					filterMatchMode="contains">					
+				    <h:outputText value="#{tarea.idRolAsignacion}" >
+				    	<f:converter converterId="rolConverter"/>
+				    </h:outputText>
+				</ace:column>
+			</ace:dataTable>
+	</h:form>
+</ui:composition>

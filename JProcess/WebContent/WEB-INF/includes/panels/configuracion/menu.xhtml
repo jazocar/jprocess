@@ -1,0 +1,122 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ace="http://www.icefaces.org/icefaces/components"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:icecore="http://www.icefaces.org/icefaces/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:form>
+		<table>
+			<tr>
+				<td align="left"><ice:graphicImage
+						url="./img/mantenedor_menu.png" style="padding-left: 30px;" /></td>
+			</tr>
+		</table>
+		<br />
+		<table>
+			<tr>
+				<td><h:outputLabel for="id_menu" value="Id Menú" /></td>
+				<td><ace:textEntry id="id_menu" immediate="true" value="#{menuFrontBean.inputIdMenu}"/></td>
+				<td><h:outputLabel for="label_menu" value="Etiqueta" /></td>
+				<td><ace:textEntry id="label_menu" immediate="true" value="#{menuFrontBean.inputLabel}"/></td>
+				<td><h:outputLabel for="order" value="Orden" /></td>
+				<td><ace:textEntry id="order" immediate="true" value="#{menuFrontBean.inputOrder}"/></td>
+			</tr>
+		</table>
+		<div align="left">
+			<br />
+			<table>
+				<tr>
+					<td><ace:pushButton value="Ingresar"
+							actionListener="#{menuFrontBean.ingresarMenuListener}"
+							rendered="#{!menuFrontBean.selected}" /></td>
+					<td><ace:pushButton value="Modificar"
+							actionListener="#{menuFrontBean.modificarMenuListener}"
+							rendered="#{menuFrontBean.selected}" /></td>
+					<td><ace:pushButton value="Dar de Baja"
+							actionListener="#{menuFrontBean.darBajaMenuListener}"
+							rendered="#{menuFrontBean.selected}" /></td>		
+					<td><ace:pushButton value="Perfilar"
+							actionListener="#{menuFrontBean.abrirPerfilarMenuListener}"
+							rendered="#{menuFrontBean.selected}" /></td>					
+					<td><ace:pushButton value="Limpiar"
+							actionListener="#{menuFrontBean.limpiarCamposListener}" /></td>
+				</tr>
+			</table>
+		</div>
+		<br/>
+		<ace:dataTable id="menuList" var="menu" rows="15"
+			selectionMode="single" value="#{menuFrontBean.listaMenuTable}"  paginator="true" paginatorPosition="top"
+			rowSelectListener="#{menuFrontBean.rowSelectionListener}">
+
+			<ace:column headerText="Id" sortBy="#{menu.id}"
+					filterBy="#{menu.id}"
+					filterMatchMode="contains">
+				<ice:outputText id="idMenu" value="#{menu.id}" />
+			</ace:column>			
+			<ace:column headerText="Id Menu" sortBy="#{menu.idMenu}"
+					filterBy="#{menu.idMenu}"
+					filterMatchMode="contains">
+				<ice:outputText id="menuIdMenu" value="#{menu.idMenu}" />
+			</ace:column>			
+			<ace:column headerText="Etiqueta" sortBy="#{menu.etiqueta}"
+					filterBy="#{menu.etiqueta}"
+					filterMatchMode="contains">
+				<ice:outputText id="etiquetaMenu" value="#{menu.etiqueta}" />
+			</ace:column>
+			<ace:column headerText="Order"  sortBy="#{menu.order}"
+					filterBy="#{menu.order}"
+					filterMatchMode="contains">
+				<ice:outputText id="orderMenu" value="#{menu.order}" />
+			</ace:column>
+		
+		</ace:dataTable>
+		
+				<ice:panelPopup visible="#{menuFrontBean.abrirPerfilarMenu}"
+			rendered="#{menuFrontBean.abrirPerfilarMenu}" modal="true"
+			autoCentre="true" positionOnLoadOnly="false" draggable="true"
+			style="border-radius: 15px 15px 15px 15px;">
+
+			<f:facet name="body">
+				<ice:panelGroup>
+					<ice:graphicImage url="./img/menu_perfilado.png" height="35" />
+				</ice:panelGroup>
+				<br />
+				
+				 <ace:listControl id="dualListControl" >
+                    <f:facet name="header">
+                       Lista de Roles
+                    </f:facet>
+                    <f:facet name="footer">
+                        
+                    </f:facet>
+
+                    <ace:list id="firstList" value="#{menuFrontBean.firstRoles}"
+                              styleClass="subList"
+                              dropGroup="textGroup"
+                              selectionMode="multiple"
+                               />
+
+                    <ace:list id="secondList" value="#{menuFrontBean.secondRoles}"
+                              styleClass="subList"
+                              dropGroup="textGroup"
+                              selectionMode="multiple"
+                              />
+                </ace:listControl>
+				<br />
+				<br />
+				<table style="float: right;">
+					<tr>
+						<td><ace:pushButton value="Asignar"
+								actionListener="#{menuFrontBean.modificarMenuRolProfile}" /></td>
+						<td><ace:pushButton value="Cerrar"
+								actionListener="#{menuFrontBean.cerrarPerfilarMenuListener}" /></td>
+					</tr>
+				</table>
+
+			</f:facet>
+		</ice:panelPopup>
+	</h:form>
+</ui:composition>

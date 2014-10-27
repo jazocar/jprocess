@@ -1,0 +1,51 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ace="http://www.icefaces.org/icefaces/components"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:icecore="http://www.icefaces.org/icefaces/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<h:form>
+		<table>
+			<tr>
+				<td valign="top"><ace:textEntry     label="Aplicación"  labelPosition="left" value="#{aplicacionFrontBean.inputAplicacion}"   immediate="true"/></td>
+				<td valign="top"><ace:textAreaEntry label="Descripción" labelPosition="left" value="#{aplicacionFrontBean.inputDescripcion}" cols="40" immediate="true"/></td>
+				<td valign="top"><ace:textEntry     label="Versión"     labelPosition="left" value="#{aplicacionFrontBean.inputVersion}"      immediate="true"/></td>
+			</tr>
+		</table>
+		<table>
+					<tr>
+						<td><ace:pushButton
+								actionListener="#{aplicacionFrontBean.insertAplicacionListener}"
+								value="Ingresar" rendered="#{!aplicacionFrontBean.selected}" /></td>
+						<td><ace:pushButton
+								actionListener="#{aplicacionFrontBean.updateAplicacionListener}"
+								value="Modificar" rendered="#{aplicacionFrontBean.selected}" /></td>
+						<td><ace:pushButton
+								actionListener="#{aplicacionFrontBean.deleteAplicacionListener}"
+								value="Dar de Baja" rendered="#{aplicacionFrontBean.selected}" /></td>
+						<td><ace:pushButton
+								actionListener="#{aplicacionFrontBean.resetAplicacionListener}"
+								value="Limpiar" >
+								<ace:ajax event="activate" execute="@this"/>
+								</ace:pushButton></td>						
+					</tr>
+				</table>
+				<br/>
+		<ace:dataTable value="#{aplicacionFrontBean.listaAplicacion}" var="app" selectionMode="single" rowSelectListener="#{aplicacionFrontBean.aplicacionSelectListener}">
+			<ace:column headerText="Id">
+				<h:outputText value="#{app.id}"/>
+			</ace:column>
+			<ace:column headerText="Aplicación">
+				<h:outputText value="#{app.aplicacion}"/>
+			</ace:column>
+			<ace:column headerText="Descripción">
+				<h:outputText value="#{app.descripcion}"/>
+			</ace:column>
+			<ace:column headerText="Versión">
+				<h:outputText value="#{app.version}"/>
+			</ace:column>
+		</ace:dataTable>
+	</h:form>
+</ui:composition>
