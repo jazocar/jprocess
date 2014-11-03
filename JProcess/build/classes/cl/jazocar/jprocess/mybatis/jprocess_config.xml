@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+  <properties resource="properties/jprocess.properties"/>
+  <!-- settings>
+  	<setting name="logImpl" value="org.apache.ibatis.logging.LogFactory.useLog4JLogging()"/>
+  </settings-->
+  <typeAliases>
+      
+      <typeAlias alias="menuJProcessModel"    type="cl.jazocar.jprocess.sys.dto.MenuDTO"/>
+      <typeAlias alias="submenuJProcessModel" type="cl.jazocar.jprocess.sys.dto.SubmenuDTO"/>
+      <typeAlias alias="panelJProcessModel"   type="cl.jazocar.jprocess.sys.dto.PanelDTO"/>      
+      <typeAlias alias="rolJProcessModel"   type="cl.jazocar.jprocess.sys.dto.RolDTO"/>
+      
+      <typeAlias alias="tareaModel"              type="cl.jazocar.jprocess.dto.TareaDTO"/>
+      <typeAlias alias="tareaConfiguracionModel" type="cl.jazocar.jprocess.dto.TareaConfiguracionDTO"/>
+      <typeAlias alias="creacionModel"           type="cl.jazocar.jprocess.dto.CreacionDTO"/>
+      <typeAlias alias="aplicacionModel"         type="cl.jazocar.jprocess.dto.AplicacionDTO"/>
+      <typeAlias alias="pendienteModel"          type="cl.jazocar.jprocess.dto.PendienteDTO"/>
+      <typeAlias alias="solicitudModel"          type="cl.jazocar.jprocess.dto.SolicitudDTO"/>
+      <typeAlias alias="comentarioModel"         type="cl.jazocar.jprocess.dto.CasoComentarioDTO"/>
+      <typeAlias alias="organizacionModel"       type="cl.jazocar.jprocess.dto.OrganizacionDTO"/>
+      <typeAlias alias="areaModel"               type="cl.jazocar.jprocess.dto.AreaDTO"/>
+      <typeAlias alias="subareaModel"            type="cl.jazocar.jprocess.dto.SubareaDTO"/>
+      <typeAlias alias="usuarioJProcessModel"    type="cl.jazocar.jprocess.dto.UsuarioDTO"/>
+      <typeAlias alias="calendar"                type="java.util.Calendar"/>	 
+  </typeAliases>  
+ 
+  
+  <environments default="${enviroment}">
+    <environment id="localhost">
+      <transactionManager type="JDBC"/>
+	     <dataSource type="JNDI">
+        	 <property name="data_source" value="${cl.jazocar.jprocess.jndi.local}"/>
+    	</dataSource>
+    </environment>  
+     <environment id="development">
+      <transactionManager type="JDBC"/>
+	     <dataSource type="JNDI">
+        	 <property name="data_source" value="${cl.jazocar.jprocess.jndi.development}"/>
+    	</dataSource>
+    </environment> 
+  </environments>
+  
+  <mappers>
+   	<mapper resource="cl/jazocar/jprocess/mybatis/jprocess_mapper.xml"/>
+  </mappers>
+
+</configuration>
