@@ -13,183 +13,517 @@
 					<tr>
 						<td align="left"><ice:outputText value="Cliente"
 								style="font-size:small; color:black;" /></td>
-						<td><ace:simpleSelectOneMenu style="color:black; font-size: small;">
-								<f:selectItem itemLabel="Persona Natural"     itemValue="PN"/>
-								<f:selectItem itemLabel="Persona Jurídica"    itemValue="PJ"/>						   		
-						   </ace:simpleSelectOneMenu> </td>				
-					</tr>								
+						<td><ice:selectOneMenu
+								value="#{informeLegalFrontClass.selectedTipoPersona}"
+								valueChangeListener="#{informeLegalFrontClass.onChangeTipoCliente}"
+								immediate="true" style="color:black; font-size: small;"
+								partialSubmit="true">
+								<f:selectItem itemLabel="Persona Natural" itemValue="PN" />
+								<f:selectItem itemLabel="Persona Jurídica" itemValue="PJ" />
+							</ice:selectOneMenu></td>
+					</tr>
 				</table>
-				<ice:panelGroup>
+				<h2 align="left">Datos del Cliente</h2>
+				<ice:panelGroup rendered="#{!informeLegalFrontClass.juridica}">
+					<table>
+						<tr>
+							<td align="left"><ice:outputText value="Rut"
+									style="font-size:small; color:black;" /></td>
+							<td><ice:inputText /></td>
+
+							<td align="left" style="padding-left: 20px;"><ice:outputText
+									value="N. de Cliente" style="font-size:small; color:black;" /></td>
+							<td><ice:inputText /></td>
+
+							<td align="left" style="padding-left: 20px;"><ice:outputText
+									value="Nombre" style="font-size:small; color:black;" /></td>
+							<td><ice:inputText /></td>
+						</tr>
+						<tr>
+
+							<td align="left"><ice:outputText value="Apellido Paterno"
+									style="font-size:small; color:black;" /></td>
+							<td><ice:inputText /></td>
+
+							<td align="left" style="padding-left: 20px;"><ice:outputText
+									value="Apellido Materno" style="font-size:small; color:black;" /></td>
+							<td><ice:inputText /></td>
+
+							<td align="left" style="padding-left: 20px;"><ice:outputText
+									value="Estado Civil" style="font-size:small; color:black;" /></td>
+							<td><ace:simpleSelectOneMenu
+									style="color:black; font-size: small;">
+									<f:selectItem itemLabel="Soltero" itemValue="S" />
+									<f:selectItem itemLabel="Casado Soc. Conyugal" itemValue="CSC" />
+									<f:selectItem itemLabel="Casado Sep. Bienes" itemValue="CSB" />
+									<f:selectItem itemLabel="Casado Par. Gananciales"
+										itemValue="CPG" />
+									<f:selectItem itemLabel="Viudo" itemValue="V" />
+									<f:selectItem itemLabel="Divorciado" itemValue="D" />
+								</ace:simpleSelectOneMenu></td>
+						</tr>
+						<tr>
+							<td align="left"><ice:outputText value="Teléfono"
+									style="font-size:small; color:black;" /></td>
+							<td><ice:inputText /></td>
+
+							<td align="left" style="padding-left: 20px;"><ice:outputText
+									value="Email" style="font-size:small; color:black;" /></td>
+							<td><ice:inputText /></td>
+
+							<td></td>
+							<td></td>
+						</tr>
+					</table>
+				</ice:panelGroup>
+				<ice:panelGroup rendered="#{informeLegalFrontClass.juridica}">
+					<table>
+						<tr>
+							<td align="left"><ice:outputText value="Rut"
+									style="font-size:small; color:black;" /></td>
+							<td><ice:inputText /></td>
+
+							<td align="left"><ice:outputText value="N. de Cliente"
+									style="font-size:small; color:black;" /></td>
+							<td><ice:inputText /></td>
+
+							<td align="left"><ice:outputText value="Razon Social"
+									style="font-size:small; color:black;" /></td>
+							<td><ice:inputText /></td>
+						</tr>
+
+						<tr>
+							<td align="left"><ice:outputText value="Teléfono"
+									style="font-size:small; color:black;" /></td>
+							<td><ice:inputText /></td>
+
+							<td align="left"><ice:outputText value="Email"
+									style="font-size:small; color:black;" /></td>
+							<td><ice:inputText /></td>
+
+							<td></td>
+							<td></td>
+						</tr>
+					</table>
+				</ice:panelGroup>
+				<hr />
+				<h2 align="left">Cliente Solicitante</h2>
 				<table>
 					<tr>
-						<td align="left"><ice:outputText value="Rut"
+						<td align="left"><ice:outputText value="Cliente"
 								style="font-size:small; color:black;" /></td>
 						<td><ice:inputText /></td>
-					
-						<td  align="left"><ice:outputText value="N. de Cliente"
-								style="font-size:small; color:black;" /></td>
+
+						<td align="left" style="padding-left: 20px;"><ice:outputText
+								value="Sucursal" style="font-size:small; color:black;" /></td>
 						<td><ice:inputText /></td>
-					
-						<td align="left"><ice:outputText value="Nombre"
-								style="font-size:small; color:black;" /></td>
-						<td><ice:inputText /></td>
-					</tr>
-					<tr>
-					
-						<td align="left"><ice:outputText value="Apellido Paterno"
-								style="font-size:small; color:black;" /></td>
-						<td><ice:inputText /></td>
-					
-						<td align="left"><ice:outputText value="Apellido Materno"
-								style="font-size:small; color:black;" /></td>
-						<td><ice:inputText /></td>
-					
-						<td align="left"><ice:outputText value="Estado Civil"
-								style="font-size:small; color:black;" /></td>
-						<td><ace:simpleSelectOneMenu style="color:black; font-size: small;">
-								<f:selectItem itemLabel="Soltero"                 itemValue="S"/>
-								<f:selectItem itemLabel="Casado Soc. Conyugal"    itemValue="CSC"/>
-								<f:selectItem itemLabel="Casado Sep. Bienes"      itemValue="CSB"/>
-								<f:selectItem itemLabel="Casado Par. Gananciales" itemValue="CPG"/>
-								<f:selectItem itemLabel="Viudo" 				  itemValue="V"/>
-								<f:selectItem itemLabel="Divorciado" 			  itemValue="D"/>
-						   </ace:simpleSelectOneMenu> </td>
-					</tr>
-					<tr>
-						<td align="left"><ice:outputText value="Teléfono"
-								style="font-size:small; color:black;" /></td>
-						<td><ice:inputText /></td>
-					
-						<td align="left"><ice:outputText value="Email"
-								style="font-size:small; color:black;" /></td>
-						<td><ice:inputText /></td>
-						
-						<td></td>
-						<td></td>
-					</tr>
-				</table>
-				</ice:panelGroup>
-				<ice:panelGroup>
-				 <table>
-					<tr>
-						<td align="left"><ice:outputText value="Rut"
-								style="font-size:small; color:black;" /></td>
-						<td><ice:inputText /></td>
-					
-						<td  align="left"><ice:outputText value="N. de Cliente"
-								style="font-size:small; color:black;" /></td>
-						<td><ice:inputText /></td>
-					
-						<td align="left"><ice:outputText value="Razon Social"
-								style="font-size:small; color:black;" /></td>
-						<td><ice:inputText /></td>
-					</tr>
-					
-					<tr>
-						<td align="left"><ice:outputText value="Teléfono"
-								style="font-size:small; color:black;" /></td>
-						<td><ice:inputText /></td>
-					
-						<td align="left"><ice:outputText value="Email"
-								style="font-size:small; color:black;" /></td>
-						<td><ice:inputText /></td>
-						
-						<td></td>
-						<td></td>
-					</tr>
-				</table>
-				</ice:panelGroup>
-				<hr/>
-				<table>
-					<tr>
-						<td align="left"><ice:outputText value="Banco"
-								style="font-size:small; color:black;" /></td>
-						<td><ice:inputText /></td>
-					
-						<td  align="left"><ice:outputText value="Sucursal"
-								style="font-size:small; color:black;" /></td>
-						<td><ice:inputText /></td>
-					
-						<td align="left"><ice:outputText value="Teléfono Sucursal"
-								style="font-size:small; color:black;" /></td>
+
+						<td align="left" style="padding-left: 20px;"><ice:outputText
+								value="Teléfono Sucursal" style="font-size:small; color:black;" /></td>
 						<td><ice:inputText /></td>
 					</tr>
 					<tr>
-					
+
 						<td align="left"><ice:outputText value="Ejecutivo"
 								style="font-size:small; color:black;" /></td>
 						<td><ice:inputText /></td>
-					
-						<td align="left"><ice:outputText value="Email Ejecutivo"
-								style="font-size:small; color:black;" /></td>
+
+						<td align="left" style="padding-left: 20px;"><ice:outputText
+								value="Email Ejecutivo" style="font-size:small; color:black;" /></td>
 						<td><ice:inputText /></td>
-					
-						<td align="left"><ice:outputText value="Fecha"
-								style="font-size:small; color:black;" /></td>
+
+						<td align="left" style="padding-left: 20px;"><ice:outputText
+								value="Fecha" style="font-size:small; color:black;" /></td>
 						<td><ice:inputText /></td>
-					</tr>					
+					</tr>
 				</table>
-				<hr/>
-					<table>
+				<hr />
+				<h2 align="left">Provisión de Gastos</h2>
+				<table>
 					<tr>
 						<td align="left"><ice:outputText value="Aut. Cargo Cta.Cte."
 								style="font-size:small; color:black;" /></td>
 						<td><ice:inputText /></td>
-					
-						<td  align="left"><ice:outputText value="Sucursal"
-								style="font-size:small; color:black;" /></td>
+
+						<td align="left" style="padding-left: 20px;"><ice:outputText
+								value="Sucursal" style="font-size:small; color:black;" /></td>
 						<td><ice:inputText /></td>
-					
-						<td align="left"><ice:outputText value="Prov. Fondos Cta. N."
+
+						<td align="left" style="padding-left: 20px;"><ice:outputText
+								value="Prov. Fondos Cta. N."
 								style="font-size:small; color:black;" /></td>
 						<td><ice:inputText /></td>
 					</tr>
 					<tr>
-					
+
 						<td align="left"><ice:outputText value="Monto"
 								style="font-size:small; color:black;" /></td>
 						<td><ice:inputText /></td>
-					
+
 						<td align="left"></td>
 						<td></td>
-					
+
 						<td align="left"></td>
 						<td></td>
-					</tr>					
+					</tr>
 				</table>
-				<hr/>
-				<table>
-					<tr>
-						<td align="left"><ice:outputText value="Tipo de Operación"
-								style="font-size:small; color:black;" /></td>
-						<td><ace:simpleSelectOneMenu style="color:black; font-size: small;">
-								<f:selectItem itemLabel="Hipoteca"          itemValue="S"/>
-								<f:selectItem itemLabel="Prenda"            itemValue="CSC"/>
-								<f:selectItem itemLabel="Alzamiento"        itemValue="CSB"/>
-								<f:selectItem itemLabel="Fianza"            itemValue="CPG"/>
-								<f:selectItem itemLabel="Mandato" 			itemValue="V"/>
-								<f:selectItem itemLabel="Sociedades" 		itemValue="D"/>
-						   		<f:selectItem itemLabel="Estudio de Título" itemValue="ET"/>
-						   		<f:selectItem itemLabel="Posesión Efectiva" itemValue="PE"/>
-						   		
-						   </ace:simpleSelectOneMenu> </td>					
-					</tr>								
-				</table>
-				<ice:panelGroup id="panelHipoteca">
+				<hr />
+
+				<ice:panelGroup id="panelHipoteca"
+					rendered="#{informeLegalFrontClass.hipoteca}">
+					<h2 align="left">Hipoteca</h2>
 					<table>
-					<tr>
-						<td align="left"><ice:outputText value="Datos de la Operación"
-								style="font-size:small; color:black;" /></td>
-						<td><ace:simpleSelectOneMenu style="color:black; font-size: small;">
-								<f:selectItem itemLabel="Compraventa"          itemValue="S"/>
-								<f:selectItem itemLabel="Refinanciamiento"            itemValue="CSC"/>
-								<f:selectItem itemLabel="Sólo Crédito (Libre Disponibilidad)"        itemValue="CSB"/>
-								<f:selectItem itemLabel="Garantía General"            itemValue="CPG"/>
-						   </ace:simpleSelectOneMenu> </td>					
-					</tr>								
-				</table>
-				
+						<tr>
+							<td align="left"><ice:outputText
+									value="Datos de la Operación"
+									style="font-size:small; color:black;" /></td>
+							<td align="left"><ace:simpleSelectOneMenu
+									style="color:black; font-size: small;">
+									<f:selectItem itemLabel="Compraventa" itemValue="S" />
+									<f:selectItem itemLabel="Refinanciamiento" itemValue="CSC" />
+									<f:selectItem itemLabel="Sólo Crédito (Libre Disponibilidad)"
+										itemValue="CSB" />
+									<f:selectItem itemLabel="Garantía General" itemValue="CPG" />
+								</ace:simpleSelectOneMenu></td>
+						</tr>
+						<tr>
+							<td align="left"><ice:outputText
+									value="Títulos estudiados anteriormente por operación de"
+									style="font-size:small; color:black;" /></td>
+							<td align="left"><ice:inputText immediate="true" /></td>
+						</tr>
+					</table>
+
+					<table>
+						<tr>
+							<td>
+								<h2 align="left">Vendedor Garante</h2>
+								<table>
+
+									<tr>
+										<td><ice:outputText value="Nombre"
+												style="font-size:small; color:black;" /></td>
+										<td><ice:inputText /></td>
+										<td><ice:outputText value="Rut"
+												style="font-size:small; color:black;" /></td>
+										<td><ice:inputText /></td>
+									</tr>
+								</table>
+								<table>
+									<tr>
+										<td><ace:pushButton value="Ingresar" /></td>
+										<td><ace:pushButton value="Eliminar" /></td>
+										<td><ace:pushButton value="Limpiar" /></td>
+									</tr>
+								</table> <br /> <ace:dataTable>
+									<ace:column headerText="Nombre">
+										<ice:inputText />
+									</ace:column>
+									<ace:column headerText="Rut">
+										<ice:inputText />
+									</ace:column>
+								</ace:dataTable>
+							</td>
+							<td style="padding-left: 20px;">
+								<h2 align="left">Aval</h2>
+								<table>
+									<tr>
+										<td><ice:outputText value="Nombre"
+												style="font-size:small; color:black;" /></td>
+										<td><ice:inputText /></td>
+										<td><ice:outputText value="Rut"
+												style="font-size:small; color:black;" /></td>
+										<td><ice:inputText /></td>
+									</tr>
+								</table>
+								<table>
+									<tr>
+										<td><ace:pushButton value="Ingresar" /></td>
+										<td><ace:pushButton value="Eliminar" /></td>
+										<td><ace:pushButton value="Limpiar" /></td>
+
+									</tr>
+								</table> <br /> <ace:dataTable>
+									<ace:column headerText="Nombre">
+										<ice:inputText />
+									</ace:column>
+									<ace:column headerText="Rut">
+										<ice:inputText />
+									</ace:column>
+								</ace:dataTable>
+
+							</td>
+						</tr>
+					</table>
+					<hr />
+					<h2 align="left">Antecedentes de la Propiedad</h2>
+					<table>
+						<tr>
+							<td align="left"><ice:outputText value="Av.Calle"
+									style="font-size:small; color:black;" /></td>
+							<td align="left"><ice:inputText /></td>
+							<td align="left" style="padding-left: 20px;"><ice:outputText
+									value="N°" style="font-size:small; color:black;" /></td>
+							<td align="left"><ice:inputText /></td>
+							<td align="left" style="padding-left: 20px;"><ice:outputText
+									value="Departamento N°/ Casa N°"
+									style="font-size:small; color:black;" /></td>
+							<td align="left"><ice:inputText /></td>
+						</tr>
+						<tr>
+							<td align="left"><ice:outputText value="Región"
+									style="font-size:small; color:black;" /></td>
+							<td align="left"><ice:inputText /></td>
+							<td align="left" style="padding-left: 20px;"><ice:outputText
+									value="Ciudad" style="font-size:small; color:black;" /></td>
+							<td align="left"><ice:inputText /></td>
+							<td align="left" style="padding-left: 20px;"><ice:outputText
+									value="Comuna" style="font-size:small; color:black;" /></td>
+							<td align="left"><ice:inputText /></td>
+						</tr>
+						<tr>
+							<td align="left"><ice:outputText
+									value="Propiedad Hipotecada"
+									style="font-size:small; color:black;" /></td>
+							<td align="left"><ice:inputText /></td>
+							<td align="left" style="padding-left: 20px;"><ice:outputText
+									value="Acreedor Hipotecario"
+									style="font-size:small; color:black;" /></td>
+							<td align="left"><ice:inputText /></td>
+							<td align="left" style="padding-left: 20px;"><ice:outputText
+									value="Rol de Avalúo" style="font-size:small; color:black;" /></td>
+							<td align="left"><ice:inputText style="width:80px;" />-<ice:inputText
+									style="width:80px;" /></td>
+						</tr>
+					</table>
+					<table>
+						<tr>
+							<td>
+								<h2 align="left">Estacionamiento</h2>
+								<table style="width: 100%;">
+									<tr>
+										<td><ice:outputText value="Rol de Avalúo"
+												style="font-size:small; color:black;" /></td>
+										<td><ice:inputText style="width:60px;" />-<ice:inputText
+												style="width:60px;" /></td>
+										<td><ice:outputText value="Número"
+												style="font-size:small; color:black;" /></td>
+										<td><ice:inputText style="width:80px;" /></td>
+									</tr>
+								</table>
+								<table>
+									<tr>
+										<td><ace:pushButton value="Ingresar" /></td>
+										<td><ace:pushButton value="Eliminar" /></td>
+										<td><ace:pushButton value="Limpiar" /></td>
+									</tr>
+								</table> <br /> <ace:dataTable>
+									<ace:column headerText="Rol Avalúo">
+										<ice:inputText />
+									</ace:column>
+									<ace:column headerText="Número">
+										<ice:inputText />
+									</ace:column>
+								</ace:dataTable>
+							</td>
+							<td style="padding-left: 50px;">
+								<h2 align="left">Bodegas</h2>
+								<table>
+									<tr>
+										<td><ice:outputText value="Rol de Avalúo"
+												style="font-size:small; color:black;" /></td>
+										<td><ice:inputText style="width:60px;" />-<ice:inputText
+												style="width:60px;" /></td>
+										<td><ice:outputText value="Número"
+												style="font-size:small; color:black;" /></td>
+										<td><ice:inputText style="width:80px;" /></td>
+									</tr>
+								</table>
+								<table>
+									<tr>
+										<td><ace:pushButton value="Ingresar" /></td>
+										<td><ace:pushButton value="Eliminar" /></td>
+										<td><ace:pushButton value="Limpiar" /></td>
+
+									</tr>
+								</table> <br /> <ace:dataTable>
+									<ace:column headerText="Rol Avalúo">
+										<ice:inputText />
+									</ace:column>
+									<ace:column headerText="Número">
+										<ice:inputText />
+									</ace:column>
+								</ace:dataTable>
+
+							</td>
+						</tr>
+					</table>
+					<br />
+					<table>
+						<tr>
+							<td><ace:pushButton value="Ingresar Propiedad" /></td>
+							<td><ace:pushButton value="Eliminar Propiedad" /></td>
+							<td><ace:pushButton value="Modificar Propiedad" /></td>
+							<td><ace:pushButton value="Limpiar" /></td>
+						</tr>
+					</table>
+					<br />
+					<ace:dataTable>
+						<ace:column headerText="Av./Calle"
+							style="font-size:x-small; color:black;">
+							<ice:outputText />
+						</ace:column>
+						<ace:column headerText="N°"
+							style="font-size:x-small; color:black;">
+							<ice:outputText />
+						</ace:column>
+						<ace:column headerText="Depto N°/Casa N°"
+							style="font-size:x-small; color:black;">
+							<ice:outputText />
+						</ace:column>
+						<ace:column headerText="Región"
+							style="font-size:x-small; color:black;">
+							<ice:outputText />
+						</ace:column>
+						<ace:column headerText="Comuna"
+							style="font-size:x-small; color:black;">
+							<ice:outputText />
+						</ace:column>
+						<ace:column headerText="Ciudad"
+							style="font-size:x-small; color:black;">
+							<ice:outputText />
+						</ace:column>
+						<ace:column headerText="Hip."
+							style="font-size:x-small; color:black;">
+							<ice:outputText />
+						</ace:column>
+						<ace:column headerText="Acreedor"
+							style="font-size:x-small; color:black;">
+							<ice:outputText />
+						</ace:column>
+						<ace:column headerText="Rol"
+							style="font-size:x-small; color:black;">
+							<ice:outputText />
+						</ace:column>
+					</ace:dataTable>
+					<br />
+					<br />
+					<table>
+						<tr>
+							<td valign="top"><h2 align="left">Documentos Adjuntos</h2>
+								<table>
+									<tr>
+										<td><ice:selectBooleanCheckbox id="SlctHipTasacion"
+												partialSubmit="true" /></td>
+										<td align="left"><ice:outputLabel for="SlctHipTasacion"
+												value="Tasación" style="font-size:small; color:black;" /></td>
+									</tr>
+									<tr>
+										<td><ice:selectBooleanCheckbox id="SlctHipInsDomVig"
+												partialSubmit="true" /></td>
+										<td align="left"><ice:outputLabel for="SlctHipInsDomVig"
+												value="Inscripción de Dominio con Vigencia"
+												style="font-size:small; color:black;" /></td>
+									</tr>
+									<tr>
+										<td><ice:selectBooleanCheckbox
+												id="SlctHipCertMatrimonioSolteria" partialSubmit="true" /></td>
+										<td align="left"><ice:outputLabel
+												for="SlctHipCertMatrimonioSolteria"
+												value="Certificado de Matrimonio/Soltería"
+												style="font-size:small; color:black;" /></td>
+									</tr>
+									<tr>
+										<td><ice:selectBooleanCheckbox id="SlctHipCertHipGrav"
+												partialSubmit="true" /></td>
+										<td align="left"><ice:outputLabel
+												for="SlctHipCertHipGrav"
+												value="Certificado de Hipotecas y Gravámenes"
+												style="font-size:small; color:black;" /></td>
+									</tr>
+									<tr>
+										<td><ice:selectBooleanCheckbox id="SlctHipPersEscPoder"
+												partialSubmit="true" /></td>
+										<td align="left"><ice:outputLabel
+												for="SlctHipPersEscPoder"
+												value="Personerias o Escrituras de Poder"
+												style="font-size:small; color:black;" /></td>
+									</tr>
+									<tr>
+										<td><ice:selectBooleanCheckbox
+												id="SlctHipCertAfectUtilidad" partialSubmit="true" /></td>
+										<td align="left"><ice:outputLabel
+												for="SlctHipCertAfectUtilidad"
+												value="Certificado de Afectación a Utilidad"
+												style="font-size:small; color:black;" /></td>
+									</tr>
+									<tr>
+										<td><ice:selectBooleanCheckbox
+												id="SlctHipInfExpropServiu" partialSubmit="true" /></td>
+										<td align="left"><ice:outputLabel
+												for="SlctHipInfExpropServiu"
+												value="Informe Expropiación SERVIU"
+												style="font-size:small; color:black;" /></td>
+									</tr>
+									<tr>
+										<td><ice:selectBooleanCheckbox id="SlctHipEscPropCli"
+												partialSubmit="true" /></td>
+										<td align="left"><ice:outputLabel for="SlctHipEscPropCli"
+												value="Escritura/s Propiedad/es del Cliente"
+												style="font-size:small; color:black;" /></td>
+									</tr>
+									<tr>
+										<td><ice:selectBooleanCheckbox id="SlctHipOtroDocumento"
+												partialSubmit="true"
+												valueChangeListener="#{informeLegalFrontClass.changeHipotecaAdjuntosListener}" /></td>
+										<td align="left"><ice:outputLabel
+												for="SlctHipOtroDocumento" value="Otro/s Documento"
+												style="font-size:small; color:black;" /></td>
+									</tr>
+								</table></td>
+							<td valign="top" style="padding-left: 200px;"><ice:panelGroup
+									rendered="#{informeLegalFrontClass.adjuntos}">
+									<h2 align="left">Ingrese los documentos adjuntos</h2>
+									<table>
+										<tr>
+											<td><ace:fileEntry id="file-entry"
+													relativePath="/files/" maxFileCount="10"
+													maxFileCountMessage="El limite es de 10 archivos."
+													fileEntryListener="#{toDoFrontBean.sampleListener}"
+													maxFileSize="6291456"
+													maxFileSizeMessage="Submitted file is too large."
+													maxTotalSize="18874368"
+													maxTotalSizeMessage="Total size of submitted files is too large."
+													useOriginalFilename="true" useSessionSubdir="true" /></td>
+											<td><h:commandButton type="submit"
+													value="Cargar Archivo" /></td>
+										</tr>
+									</table>
+									<br />
+									<ace:dataTable id="tbl" value="#{toDoFrontBean.fileData}"
+										var="fileDataVal">
+										<ace:column>
+											<f:facet name="header">
+												<h:outputText value="Archivos" />
+											</f:facet>
+											<h:outputText id="fileData" value="#{fileDataVal}" />
+										</ace:column>
+									</ace:dataTable>
+									<ace:messages id="msgs" for="tarea-form:file-entry" />
+								</ice:panelGroup></td>
+						</tr>
+					</table>
 				</ice:panelGroup>
+				<hr/>
+				<div align="left">
+					<table>
+						<tr>
+							<td><ace:pushButton value="Ingresar Solicitud" /></td>
+							<td><ace:pushButton value="Modificar Solicitud" /></td>
+							<td><ace:pushButton value="Limpiar" /></td>
+						</tr>
+					</table>
+				</div>
 			</ace:tabPane>
 		</ace:tabSet>
 	</h:form>

@@ -14,6 +14,9 @@ public interface IConstants {
 	public static final String JPROCESS_SERVICE_FACTORY = "JPROCESS_SERVICE_FACTORY";
 	public static final String JPROCESS_PROPERTIES      = "JPROCESS_SERVICE";
 	
+	
+	public static final String INFORME_LEGAL_FRONT_CLASS = "informeLegalFrontClass";
+	
 			
 	public static final String CONTEXT_LOOKUP = "java:/comp/env";
 	public static final String LOOKUP = "jdbc/jprocess";
